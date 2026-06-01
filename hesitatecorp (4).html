@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HesitateCorp™ — Customer Disservice Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3efe6;
+  --paper:#fffdf8;
+  --ink:#181613;
+  --muted:#6b6357;
+  --teal:#127a6b;
+  --teal-d:#0c5347;
+  --coral:#ef6a4c;
+  --coral-d:#d6492b;
+  --amber:#f2b705;
+  --danger:#d6332c;
+  --line:#e3dccd;
+  --shadow:0 1px 2px rgba(24,22,19,.06),0 8px 30px rgba(24,22,19,.08);
+  --shadow-lg:0 20px 60px rgba(24,22,19,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:'Hanken Grotesk',sans-serif;color:var(--ink);
+  background:
+    radial-gradient(900px 600px at 85% -5%, rgba(18,122,107,.10), transparent 60%),
+    radial-gradient(800px 500px at -5% 100%, rgba(239,106,76,.10), transparent 55%),
+    var(--bg);
+  background-attachment:fixed;
+  line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.02;letter-spacing:-.02em;margin:0}
+.mono{font-family:'Space Mono',monospace}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.btn{
+  font-family:'Hanken Grotesk';font-weight:700;font-size:16px;cursor:pointer;border:none;
+  padding:14px 26px;border-radius:999px;transition:transform .12s ease, box-shadow .2s ease, background .2s;
+}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-coral{background:var(--coral);color:#fff;box-shadow:0 8px 20px rgba(239,106,76,.35)}
+.btn-coral:hover{background:var(--coral-d)}
+.btn-teal{background:var(--teal);color:#fff;box-shadow:0 8px 20px rgba(18,122,107,.3)}
+.btn-teal:hover{background:var(--teal-d)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;padding:6px 13px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);position:relative}
+.dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--teal);opacity:.5;animation:ping 1.6s ease-out infinite}
+@keyframes ping{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+
+/* ── Cookie banner ── */
+#cookie{position:fixed;left:18px;bottom:18px;z-index:90;max-width:380px;background:var(--paper);
+  border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow-lg);
+  transform:translateY(0);transition:transform .4s cubic-bezier(.2,.9,.3,1)}
+#cookie.hide{transform:translateY(160%)}
+#cookie h4{font-family:'Bricolage Grotesque';font-size:16px;margin:0 0 6px}
+#cookie p{margin:0 0 12px;font-size:13.5px;color:var(--muted)}
+#cookie .row{display:flex;gap:8px}
+#cookie .btn{padding:9px 16px;font-size:13.5px}
+
+/* ── Nav ── */
+header.nav{position:sticky;top:0;z-index:60;backdrop-filter:blur(10px);
+  background:rgba(243,239,230,.8);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:11px;cursor:pointer;user-select:none}
+.logo .mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--teal),var(--teal-d));
+  display:grid;place-items:center;color:#fff;font-family:'Bricolage Grotesque';font-weight:800;font-size:21px;
+  box-shadow:0 6px 16px rgba(18,122,107,.35);transition:transform .3s}
+.logo:hover .mark{transform:rotate(-8deg) scale(1.05)}
+.logo b{font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;letter-spacing:-.03em}
+.logo b sup{font-size:10px;color:var(--muted);vertical-align:super}
+.nav-stats{display:flex;align-items:center;gap:10px}
+.nav-stats .pill{font-family:'Space Mono'}
+@media(max-width:760px){.nav-stats .desk{display:none}}
+
+/* ── Hero ── */
+.hero{padding:70px 0 40px;position:relative}
+.hero .pill.live{margin-bottom:22px}
+.hero h1{font-size:clamp(46px,9vw,104px);font-weight:800}
+.hero h1 .hes{cursor:help}
+.hero .sub{font-size:clamp(17px,2.4vw,22px);color:var(--muted);max-width:620px;margin:22px 0 30px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.fineprint{font-size:12px;color:var(--muted);margin-top:14px;max-width:560px}
+
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:54px}
+@media(max-width:760px){.metrics{grid-template-columns:1fr 1fr}}
+.metric{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.metric .n{font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;letter-spacing:-.03em}
+.metric .l{font-size:13px;color:var(--muted);margin-top:4px}
+.metric .n.up{color:var(--coral-d)}
+.metric .n.ok{color:var(--teal)}
+
+/* ── Sections ── */
+section{padding:64px 0}
+.eyebrow{font-family:'Space Mono';text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--teal);font-weight:700}
+.sec-h{font-size:clamp(30px,5vw,52px);font-weight:800;margin:12px 0 8px;max-width:760px}
+.sec-p{color:var(--muted);max-width:600px;font-size:17px}
+
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+@media(max-width:860px){.feat{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:var(--shadow);transition:transform .25s, box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.card .ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:26px;margin-bottom:16px;background:#f0ece1}
+.card h3{font-size:21px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:15px;margin:0}
+.card .tag{margin-top:14px;font-family:'Space Mono';font-size:11px;color:var(--coral-d);text-transform:uppercase;letter-spacing:.1em}
+
+/* ── Agents ── */
+.agents{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:36px}
+@media(max-width:760px){.agents{grid-template-columns:1fr}}
+.agent{display:flex;gap:14px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:var(--shadow)}
+.agent .av{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;color:#fff;font-size:19px;flex:none}
+.agent .meta b{font-family:'Bricolage Grotesque';font-size:17px}
+.agent .meta .role{font-size:12.5px;color:var(--muted)}
+.agent .meta .st{font-size:13px;font-weight:600;margin-top:4px}
+.st.away{color:var(--coral-d)}.st.busy{color:var(--amber)}.st.never{color:var(--danger)}
+
+/* ── Screening modal ── */
+.scrim{position:fixed;inset:0;background:rgba(24,22,19,.5);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .3s}
+.scrim.show{display:flex;opacity:1}
+.sheet{background:var(--paper);border-radius:26px;max-width:560px;width:100%;box-shadow:var(--shadow-lg);overflow:hidden;transform:translateY(20px) scale(.98);transition:transform .35s cubic-bezier(.2,.9,.3,1);max-height:92vh;display:flex;flex-direction:column}
+.scrim.show .sheet{transform:none}
+.sheet-top{padding:22px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.sheet-top h3{font-size:20px}
+.sheet-top .x{cursor:pointer;font-size:24px;color:var(--muted);background:none;border:none;line-height:1}
+.sheet-body{padding:26px;overflow-y:auto}
+.prog{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:20px}
+.prog>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--coral));transition:width .4s}
+.q{font-family:'Bricolage Grotesque';font-weight:600;font-size:23px;margin-bottom:18px;line-height:1.12}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{text-align:left;padding:15px 18px;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:15.5px;font-weight:500;transition:.15s}
+.opt:hover{border-color:var(--teal);background:#f3faf8;transform:translateX(3px)}
+
+/* Headass detector */
+.had{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.had .hd-top{display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono';font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.had .bar{height:14px;border-radius:999px;background:#eee7da;overflow:hidden;margin-top:10px;position:relative}
+.had .bar>i{display:block;height:100%;width:5%;border-radius:999px;background:linear-gradient(90deg,#3bbf8f,var(--amber),var(--danger));transition:width .5s cubic-bezier(.2,.9,.3,1)}
+.had .read{font-family:'Space Mono';font-weight:700;font-size:13px;margin-top:9px}
+
+/* Result screen */
+.result{text-align:center;padding:10px 4px}
+.result .badge{width:96px;height:96px;border-radius:26px;margin:0 auto 18px;display:grid;place-items:center;font-size:48px}
+.result h3{font-size:30px;margin-bottom:10px}
+.result p{color:var(--muted);margin:0 auto 8px;max-width:420px}
+.ticket{margin:22px auto 0;background:#181613;color:#f3efe6;border-radius:16px;padding:18px 20px;max-width:420px;text-align:left;font-family:'Space Mono'}
+.ticket .tn{font-size:13px;color:#9a917f}
+.ticket .tv{font-size:19px;font-weight:700;margin:2px 0 12px;color:var(--amber)}
+.ticket .trow{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-top:1px dashed #3a352e}
+
+/* ── Chat widget ── */
+#chatBtn{position:fixed;right:22px;bottom:22px;z-index:80;width:64px;height:64px;border-radius:50%;
+  background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:28px;box-shadow:0 14px 34px rgba(18,122,107,.45);
+  display:grid;place-items:center;transition:transform .2s}
+#chatBtn:hover{transform:scale(1.08) rotate(-6deg)}
+#chatBtn .badge2{position:absolute;top:-3px;right:-3px;background:var(--coral);color:#fff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:'Space Mono'}
+#chat{position:fixed;right:22px;bottom:22px;z-index:85;width:370px;max-width:calc(100vw - 32px);height:540px;max-height:calc(100vh - 44px);
+  background:var(--paper);border-radius:22px;box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+#chat.show{display:flex;animation:pop .3s cubic-bezier(.2,.9,.3,1)}
+@keyframes pop{from{transform:translateY(20px) scale(.96);opacity:0}to{transform:none;opacity:1}}
+.chat-head{background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.chat-head .av{width:42px;height:42px;border-radius:50%;background:#fff2;display:grid;place-items:center;font-size:22px;flex:none}
+.chat-head b{font-family:'Bricolage Grotesque';font-size:17px;display:block}
+.chat-head small{opacity:.85;font-size:12px}
+.chat-head .x{margin-left:auto;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.chat-log{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:11px;background:
+  radial-gradient(circle at 1px 1px, rgba(0,0,0,.04) 1px, transparent 0) 0 0/16px 16px}
+.msg{max-width:80%;padding:11px 14px;border-radius:16px;font-size:14.5px;line-height:1.4;animation:msgin .25s ease}
+@keyframes msgin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg.bot{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:5px}
+.msg.me{background:var(--teal);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+.msg.bot .who{font-family:'Space Mono';font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:3px}
+.typing{display:flex;gap:4px;padding:14px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bob 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+.chat-in{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:var(--paper)}
+.chat-in input{flex:1;border:1.5px solid var(--line);border-radius:999px;padding:11px 16px;font-family:inherit;font-size:14.5px;outline:none}
+.chat-in input:focus{border-color:var(--teal)}
+.chat-in button{background:var(--coral);border:none;color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:18px;flex:none}
+
+/* ── IVR ── */
+.ivr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.ivr button{padding:18px;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-family:'Space Mono';font-weight:700;font-size:15px;transition:.15s}
+.ivr button:hover{border-color:var(--coral);transform:scale(1.03)}
+.ivr button small{display:block;font-family:'Hanken Grotesk';font-weight:500;font-size:11px;color:var(--muted);margin-top:4px;text-transform:none;letter-spacing:0}
+
+/* ── Footer ── */
+footer{border-top:1px solid var(--line);margin-top:40px;padding:48px 0 90px;background:var(--paper)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+.foot-grid h5{font-family:'Space Mono';font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 14px}
+.foot-grid a{display:block;color:var(--ink);text-decoration:none;font-size:14.5px;margin-bottom:9px;opacity:.85;cursor:pointer}
+.foot-grid a:hover{color:var(--coral-d);opacity:1}
+.foot-bottom{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}
+
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);z-index:120;
+  background:var(--ink);color:var(--bg);padding:14px 22px;border-radius:14px;font-weight:600;box-shadow:var(--shadow-lg);
+  opacity:0;transition:.35s;font-size:14.5px;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.slider-wrap{margin-top:18px}
+.slider-wrap input{width:100%}
+.sat-read{font-family:'Space Mono';font-weight:700;margin-top:8px}
+</style>
+</head>
+<body>
+
+<!-- Cookie banner -->
+<div id="cookie">
+  <h4>🍪 We value your privacy (we don't)</h4>
+  <p>We use cookies to track how long you hesitate before realizing this won't help. By continuing, you consent to absolutely whatever.</p>
+  <div class="row">
+    <button class="btn btn-teal" onclick="closeCookie('accept')">Accept All</button>
+    <button class="btn btn-ghost" id="rejectBtn" onclick="rejectCookie()">Reject</button>
+  </div>
+</div>
+
+<!-- Nav -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="logo" id="logo">
+      <div class="mark">H</div>
+      <b>HesitateCorp<sup>™</sup></b>
+    </div>
+    <div class="nav-stats">
+      <span class="pill desk"><span class="dot"></span><span id="liveAgents">0 agents pretending to be online</span></span>
+      <button class="btn btn-coral" onclick="openScreen()">Begin Screening</button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="wrap">
+<section class="hero">
+  <span class="pill live"><span class="dot"></span> System status: technically operational</span>
+  <h1>Please <span class="hes">hesitate</span><br>to contact us.</h1>
+  <p class="sub">HesitateCorp™ is the world's leading provider of customer <em>disservice</em> solutions. Our mission is to make sure your concern is heard, logged, and then comprehensively ignored.</p>
+  <div class="cta">
+    <button class="btn btn-coral" onclick="openScreen()">Open a Ticket (Don't)</button>
+    <button class="btn btn-ghost" onclick="toggleChat()">Chat with FuckBot 3000™</button>
+    <button class="btn btn-ghost" id="holdBtn" onclick="toggleHold()">🎵 Hold Music: OFF</button>
+  </div>
+  <p class="fineprint">By engaging with our support flow, you acknowledge that responses are not guaranteed, expected, or in any way likely. Estimated resolution time is between "soon" and "the heat death of the universe."</p>
+
+  <div class="metrics">
+    <div class="metric"><div class="n up" id="mQueue">12</div><div class="l">Your place in queue (and climbing)</div></div>
+    <div class="metric"><div class="n up" id="mHold">04:11</div><div class="l">Estimated hold time</div></div>
+    <div class="metric"><div class="n ok">100%</div><div class="l">Tickets received with great concern</div></div>
+    <div class="metric"><div class="n" style="color:var(--danger)">0%</div><div class="l">Tickets actually resolved</div></div>
+  </div>
+</section>
+</div>
+
+<!-- Features -->
+<div class="wrap">
+<section>
+  <span class="eyebrow">Our Industry-Leading Process</span>
+  <h2 class="sec-h">A rigorous, scientific pipeline for not helping you.</h2>
+  <p class="sec-p">Every inquiry passes through our proprietary multi-stage system, engineered by people who left for lunch in 2019 and never came back.</p>
+  <div class="feat">
+    <div class="card">
+      <div class="ico">🚪</div>
+      <h3>The Fuck Off Department</h3>
+      <p>Your first and most important point of contact. They conduct a routine online Jank-Ass Screening to determine whether you're about a bunch of silly bullshit.</p>
+      <div class="tag">First responders · 0% response rate</div>
+    </div>
+    <div class="card">
+      <div class="ico">🔬</div>
+      <h3>Jank-Ass Screening™</h3>
+      <p>A scientifically dubious assessment of your overall jankiness. Powered by our patented Headass Detector™ array and a guy named Greg.</p>
+      <div class="tag">Now with 4% more vibes</div>
+    </div>
+    <div class="card">
+      <div class="ico">🎯</div>
+      <h3>The 'Gives A Fuck' Coordinator</h3>
+      <p>If you somehow pass screening, you'll be referred to our dedicated Coordinator, who gives a documented number of fucks. That number is zero.</p>
+      <div class="tag">On break since 2019</div>
+    </div>
+    <div class="card">
+      <div class="ico">🧠</div>
+      <h3>Headass Detector™ Systems</h3>
+      <p>Military-grade headass detection scans every submission in real time. If flagged as probable bullshit, you will receive no responses. None. Ever.</p>
+      <div class="tag">99.7% accuracy, allegedly</div>
+    </div>
+    <div class="card">
+      <div class="ico">♾️</div>
+      <h3>Reverse Queue Technology</h3>
+      <p>Most companies make you wait. We innovate by moving you <em>backward</em> in line the longer you stay. Patent pending. Sanity not.</p>
+      <div class="tag">Going the wrong way™</div>
+    </div>
+    <div class="card">
+      <div class="ico">📞</div>
+      <h3>Infinite Hold Experience</h3>
+      <p>Enjoy our award-nominated hold music while a recording assures you your call is important to us. It is not. It has never been.</p>
+      <div class="tag">Your call matters (it doesn't)</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- Agents -->
+<div class="wrap">
+<section>
+  <span class="eyebrow">Meet Our Dedicated Team</span>
+  <h2 class="sec-h">Real humans*. Standing by**.</h2>
+  <p class="sec-p"><span class="mono" style="font-size:13px">*citation needed &nbsp; **not standing, not by</span></p>
+  <div class="agents">
+    <div class="agent"><div class="av" style="background:#127a6b">DW</div><div class="meta"><b>Dwayne</b><div class="role">Senior Fuck Off Specialist</div><div class="st away">⏸ On break (since 2019)</div></div></div>
+    <div class="agent"><div class="av" style="background:#ef6a4c">BR</div><div class="meta"><b>Brenda</b><div class="role">Director of Active Avoidance</div><div class="st busy">🏃 Actively avoiding you</div></div></div>
+    <div class="agent"><div class="av" style="background:#7a5cb5">??</div><div class="meta"><b>The Coordinator</b><div class="role">Gives A Fuck Coordinator</div><div class="st never">🚫 Gives zero (0) fucks</div></div></div>
+    <div class="agent"><div class="av" style="background:#c79100">CH</div><div class="meta"><b>Chad</b><div class="role">VP of Working From Home</div><div class="st busy">⛳ "In a meeting" (golfing)</div></div></div>
+  </div>
+</section>
+</div>
+
+<!-- CTA strip -->
+<div class="wrap">
+<section>
+  <div style="background:linear-gradient(135deg,var(--teal),var(--teal-d));border-radius:28px;padding:clamp(34px,6vw,64px);color:#fff;text-align:center;box-shadow:var(--shadow-lg)">
+    <h2 style="font-size:clamp(28px,5vw,46px);font-weight:800">Ready to not get help?</h2>
+    <p style="opacity:.9;max-width:480px;margin:14px auto 26px;font-size:17px">Submit your concern to the Fuck Off Department and begin your Jank-Ass Screening today. Results may vary. They won't, but they may.</p>
+    <button class="btn" style="background:#fff;color:var(--teal-d)" onclick="openScreen()">Submit My Silly Bullshit →</button>
+  </div>
+</section>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><div class="mark">H</div><b>HesitateCorp<sup>™</sup></b></div>
+        <p style="color:var(--muted);font-size:14px;max-width:280px;margin:0">A subsidiary of We Don't Care Holdings, LLC. Disrupting customer service by simply not doing any.</p>
+      </div>
+      <div>
+        <h5>Departments</h5>
+        <a onclick="openScreen()">Fuck Off Department</a>
+        <a onclick="toast('The Coordinator is on break. Has been since 2019.')">Gives A Fuck Coordinator</a>
+        <a onclick="toast('Headass Detector recalibrating… please wait forever.')">Headass Detection Unit</a>
+        <a onclick="toggleChat()">Live Chat (FuckBot)</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a id="careersLink">Careers</a>
+        <a onclick="toast('Our values: 1) Hesitate. 2) Avoid. 3) Golf.')">Our Values</a>
+        <a onclick="toast('Press 1 for English. Press 2 to also wait.')">Contact Us</a>
+        <a id="ceoLink" onclick="toast('Click the logo 7 times to access the executive suite. 🤫')">Leadership</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a onclick="toast('By reading this you agree to keep waiting.')">Terms of Disservice</a>
+        <a onclick="closeCookie('reopen')">Cookie Policy</a>
+        <a onclick="toast('Refunds processed by the Coordinator (on break since 2019).')">Refund Policy</a>
+        <a onclick="document.querySelector('.konami-hint').style.display='block';toast('Psst… a true gamer never forgets the code. ↑↑↓↓←→←→BA')">Accessibility</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 HesitateCorp™. All rights ignored. Estimated response time: 🤷</span>
+      <span class="konami-hint mono" style="display:none;color:var(--coral-d)">Hint: ↑ ↑ ↓ ↓ ← → ← → B A</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Chat launcher -->
+<button id="chatBtn" onclick="toggleChat()" aria-label="Open chat">💬<span class="badge2" id="chatBadge">1</span></button>
+
+<!-- Chat window -->
+<div id="chat">
+  <div class="chat-head">
+    <div class="av">🤖</div>
+    <div><b>FuckBot 3000™</b><small id="botStatus">Typically replies in: never</small></div>
+    <button class="x" onclick="toggleChat()">×</button>
+  </div>
+  <div class="chat-log" id="chatLog"></div>
+  <div class="chat-in">
+    <input id="chatInput" placeholder="Describe your silly bullshit…" onkeydown="if(event.key==='Enter')sendMsg()">
+    <button onclick="sendMsg()">↑</button>
+  </div>
+</div>
+
+<!-- Screening modal -->
+<div class="scrim" id="scrim">
+  <div class="sheet">
+    <div class="sheet-top">
+      <h3 id="sheetTitle">Jank-Ass Screening™</h3>
+      <button class="x" onclick="closeScreen()">×</button>
+    </div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ════════════ STATE ════════════ */
+let queue = 12, holdSec = 251, headass = 5, step = 0, score = 0, ceoClicks=0, holdOn=false;
+let audioCtx=null, holdNodes=[], holdTimer=null;
+
+/* ════════════ LIVE METRICS ════════════ */
+const fmt = s => String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function tick(){
+  // reverse queue tech: line keeps growing
+  queue += Math.floor(Math.random()*4)+1;
+  holdSec += Math.floor(Math.random()*7)+3;
+  document.getElementById('mQueue').textContent = queue.toLocaleString();
+  document.getElementById('mHold').textContent = fmt(holdSec);
+  const agents = Math.random()<0.5 ? 0 : (Math.random()<0.7?1:2);
+  document.getElementById('liveAgents').textContent = agents===0
+    ? '0 agents pretending to be online'
+    : agents+' agent'+(agents>1?'s':'')+' pretending to be online';
+}
+setInterval(tick, 2200);
+
+/* ════════════ COOKIES ════════════ */
+let rejectDodges = 0;
+function rejectCookie(){
+  const b = document.getElementById('rejectBtn');
+  rejectDodges++;
+  if(rejectDodges<4){
+    // the reject button runs away
+    b.style.position='relative';
+    b.style.left = (Math.random()*120-60)+'px';
+    b.style.top = (Math.random()*40-20)+'px';
+    b.textContent = ['Reject','Nope','Catch me','Too slow'][rejectDodges];
+  } else {
+    b.textContent = 'Fine, you win';
+    setTimeout(()=>{ closeCookie('accept'); toast('Cookies accepted anyway. The illusion of choice is a core value.'); },500);
+  }
+}
+function closeCookie(mode){
+  document.getElementById('cookie').classList.add('hide');
+  if(mode==='accept') setTimeout(()=>{},0);
+}
+
+/* ════════════ TOAST ════════════ */
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>t.classList.remove('show'),3400);
+}
+
+/* ════════════ HOLD MUSIC (Web Audio cheesy muzak) ════════════ */
+const muzak = [392,440,494,440,392,330,392,440, 349,392,440,392,349,294,330,294]; // wonky elevator loop
+function toggleHold(){
+  holdOn=!holdOn;
+  document.getElementById('holdBtn').textContent = '🎵 Hold Music: '+(holdOn?'ON':'OFF');
+  if(holdOn){ startHold(); toast('Your call is important to us. (It is not.)'); }
+  else stopHold();
+}
+function startHold(){
+  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  let i=0;
+  const play=()=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='triangle'; o.frequency.value=muzak[i%muzak.length];
+    g.gain.setValueAtTime(0,audioCtx.currentTime);
+    g.gain.linearRampToValueAtTime(.06,audioCtx.currentTime+.04);
+    g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.42);
+    o.connect(g).connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime+.45);
+    i++;
+  };
+  play(); holdTimer=setInterval(play,460);
+}
+function stopHold(){ clearInterval(holdTimer); }
+
+/* ════════════ HEADASS DETECTOR ════════════ */
+function setHeadass(v){
+  headass=Math.max(0,Math.min(100,v));
+  const fill=document.getElementById('hadFill'), read=document.getElementById('hadRead');
+  if(fill) fill.style.width=headass+'%';
+  if(read){
+    let label,color;
+    if(headass<25){label='LOW — suspiciously well-adjusted';color='var(--teal)'}
+    else if(headass<55){label='ELEVATED — mild headassery detected';color='var(--amber)'}
+    else if(headass<80){label='HIGH — significant bullshit signature';color='var(--coral-d)'}
+    else{label='CRITICAL — peak headass achieved 🚨';color='var(--danger)'}
+    read.textContent='READING: '+headass+'% · '+label;
+    read.style.color=color;
+  }
+}
+
+/* ════════════ SCREENING FLOW ════════════ */
+const questions = [
+  { q:"On a scale of 1 to 'absolutely not,' how silly is your bullshit today?",
+    opts:[["Not silly at all, this is serious",0],["A little silly, but valid",18],["Pretty silly honestly",40],["Industrial-grade silly bullshit",70]] },
+  { q:"Have you tried turning your entire personality off and on again?",
+    opts:[["Yes, multiple times",10],["No, why would I do that",30],["I don't have one to restart",5],["I AM the problem",60]] },
+  { q:"Are you about to ask us something you could've Googled in 4 seconds?",
+    opts:[["No, this is a real issue",8],["…maybe",35],["Yes but I want a human to suffer with me",55],["I don't believe in search engines",75]] },
+  { q:"How many times have you said 'I'd like to speak to a manager' this month?",
+    opts:[["Zero, I'm normal",2],["Once or twice, fairly",22],["I've lost count",58],["I AM looking for a manager right now",80]] },
+  { q:"Final question. Is this an actual problem, or are you just bored?",
+    opts:[["Genuine, documented problem",6],["50/50",38],["Mostly bored",62],["I just like submitting forms",85]] }
+];
+
+function openScreen(){
+  step=0; score=0; setHeadass(5);
+  document.getElementById('scrim').classList.add('show');
+  renderStep();
+}
+function closeScreen(){ document.getElementById('scrim').classList.remove('show'); }
+
+function renderStep(){
+  const body=document.getElementById('sheetBody');
+  document.getElementById('sheetTitle').textContent='Jank-Ass Screening™';
+  if(step<questions.length){
+    const Q=questions[step];
+    const pct=Math.round((step/questions.length)*100);
+    body.innerHTML=`
+      <div class="prog"><i style="width:${pct}%"></i></div>
+      <div class="q">${Q.q}</div>
+      <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" onclick="answer(${o[1]})">${o[0]}</button>`).join('')}</div>
+      <div class="had">
+        <div class="hd-top"><span>🧠 Headass Detector™</span><span class="mono">LIVE</span></div>
+        <div class="bar"><i id="hadFill" style="width:${headass}%"></i></div>
+        <div class="read" id="hadRead"></div>
+      </div>`;
+    setHeadass(headass);
+  } else {
+    showResult();
+  }
+}
+function answer(pts){
+  score+=pts;
+  // animate detector reacting to the answer
+  setHeadass(Math.round(score/(step+1)) + (pts>50?15:0));
+  step++;
+  setTimeout(renderStep, 260);
+}
+
+function showResult(){
+  const avg=Math.round(score/questions.length);
+  setHeadass(avg);
+  const body=document.getElementById('sheetBody');
+  document.getElementById('sheetTitle').textContent='Screening Results';
+  const tn = 'JANK-'+Math.floor(Math.random()*900000+100000);
+  let badge,color,title,p1,p2,statusLine,routed;
+  if(avg<30){
+    badge='🎉';color='var(--teal)';title='You passed screening!';
+    p1='Incredible. Our Headass Detector™ found minimal bullshit. You have been referred to our Gives A Fuck Coordinator.';
+    p2='The Coordinator has reviewed your case and, true to title, gives exactly zero fucks. But you got referred! That\'s rare.';
+    statusLine='REFERRED → COORDINATOR (on break since 2019)';
+    routed='Gives A Fuck Coordinator';
+  } else if(avg<60){
+    badge='🤔';color='var(--amber)';title='Inconclusive jankiness.';
+    p1='Our systems detected a moderate bullshit signature. Greg from screening has manually flagged this for "later" (a time that does not exist).';
+    p2='You may resubmit, but the queue will only grow. That\'s Reverse Queue Technology™ working as intended.';
+    statusLine='PENDING → INDEFINITELY';
+    routed='The Fuck Off Department (declined to refer)';
+  } else {
+    badge='🚨';color='var(--danger)';title='Flagged as probable bullshit.';
+    p1='Our headass detector systems have flagged your submission as probable bullshit. Per policy, you will receive no responses. None. Ever.';
+    p2='This is not an error. This is the feature working flawlessly. Thank you for hesitating to contact us.';
+    statusLine='REJECTED → THE VOID';
+    routed='Nobody. Specifically.';
+  }
+  body.innerHTML=`
+    <div class="result">
+      <div class="badge" style="background:${color}22">${badge}</div>
+      <h3 style="color:${color}">${title}</h3>
+      <p>${p1}</p>
+      <p>${p2}</p>
+      <div class="ticket">
+        <div class="tn">TICKET NUMBER</div>
+        <div class="tv">${tn}</div>
+        <div class="trow"><span>Status</span><span>${statusLine}</span></div>
+        <div class="trow"><span>Headass score</span><span>${avg}%</span></div>
+        <div class="trow"><span>Routed to</span><span>${routed}</span></div>
+        <div class="trow"><span>Est. resolution</span><span>${['heat death of universe','soon™','when pigs golf','ask again later'][Math.floor(Math.random()*4)]}</span></div>
+      </div>
+    </div>
+    <div class="slider-wrap">
+      <p style="font-weight:600;margin:22px 0 4px">How satisfied are you with this outcome?</p>
+      <input type="range" min="0" max="100" value="0" id="satSlider">
+      <div class="sat-read" id="satRead" style="color:var(--muted)">Satisfaction: 0% — perfect, no notes.</div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button class="btn btn-teal" style="flex:1" onclick="openScreen()">Submit Again (don't)</button>
+      <button class="btn btn-ghost" onclick="ivrScreen()">Call Instead</button>
+    </div>`;
+  setHeadass(avg);
+  // rigged satisfaction slider — fights back
+  const sl=document.getElementById('satSlider'), sr=document.getElementById('satRead');
+  sl.addEventListener('input',()=>{
+    let v=+sl.value;
+    if(v>15){ // snap it back down, the slider refuses satisfaction
+      sl.value=Math.max(0,v-Math.ceil(v*0.7));
+      sl.classList.add('shake'); setTimeout(()=>sl.classList.remove('shake'),400);
+      const quips=['Satisfaction not available in your region.','Nice try.','Our slider only goes down.','That feeling is temporary.','Recalibrating your expectations…'];
+      sr.textContent='Satisfaction: '+sl.value+'% — '+quips[Math.floor(Math.random()*quips.length)];
+      sr.style.color='var(--coral-d)';
+    } else {
+      sr.textContent='Satisfaction: '+sl.value+'% — perfect, no notes.';
+    }
+  });
+}
+
+/* ════════════ IVR ════════════ */
+let ivrDepth=0;
+function ivrScreen(){
+  ivrDepth++;
+  document.getElementById('sheetTitle').textContent='Automated Phone System';
+  const body=document.getElementById('sheetBody');
+  const intros=[
+    'Thank you for calling HesitateCorp™. Your call is important to us. It is not, but it is.',
+    'Please listen carefully as our menu options have changed (they haven\'t).',
+    'We are experiencing unusually high call volume. We always are. We made it that way.',
+    'Para continuar en español, no.'
+  ];
+  body.innerHTML=`
+    <p style="color:var(--muted);font-size:15px">📞 ${intros[Math.min(ivrDepth-1,intros.length-1)]}</p>
+    <div class="ivr">
+      <button onclick="ivrPress('billing')">1<small>Billing</small></button>
+      <button onclick="ivrPress('tech')">2<small>Tech support</small></button>
+      <button onclick="ivrPress('human')">3<small>Speak to a human</small></button>
+      <button onclick="ivrPress('again')">4<small>Repeat menu</small></button>
+      <button onclick="ivrPress('hold')">5<small>Hold forever</small></button>
+      <button onclick="ivrPress('manager')">0<small>Manager</small></button>
+    </div>
+    <p class="mono" style="font-size:12px;color:var(--muted);margin-top:16px">Menu loop depth: ${ivrDepth}</p>`;
+}
+function ivrPress(k){
+  if(k==='hold'){ if(!holdOn) toggleHold(); toast('Now holding. Forever. Enjoy the muzak.'); }
+  else if(k==='human'){ toast('Connecting you to a human… connection failed. Try option 3.'); ivrScreen(); }
+  else if(k==='manager'){ toast('The manager is the Coordinator. On break since 2019.'); ivrScreen(); }
+  else if(k==='billing'){ toast('Press 1 for billing. You just did. Press 1 for billing.'); ivrScreen(); }
+  else { ivrScreen(); }
+}
+
+/* ════════════ FUCKBOT 3000 CHAT ════════════ */
+let chatOpen=false, chatStarted=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat').classList.toggle('show',chatOpen);
+  document.getElementById('chatBtn').style.display = chatOpen?'none':'grid';
+  document.getElementById('chatBadge').style.display='none';
+  if(chatOpen && !chatStarted){
+    chatStarted=true;
+    botSay("Hi! 👋 I'm FuckBot 3000™, your AI disservice assistant.");
+    setTimeout(()=>botSay("Before we begin, please note I'm contractually unable to actually help. How can I not assist you today?"),900);
+  }
+}
+function botSay(text,who='FuckBot 3000'){
+  const log=document.getElementById('chatLog');
+  const m=document.createElement('div'); m.className='msg bot';
+  m.innerHTML=`<span class="who">${who}</span>${text}`;
+  log.appendChild(m); log.scrollTop=log.scrollHeight;
+}
+function meSay(text){
+  const log=document.getElementById('chatLog');
+  const m=document.createElement('div'); m.className='msg me'; m.textContent=text;
+  log.appendChild(m); log.scrollTop=log.scrollHeight;
+}
+function typing(cb,delay=1100){
+  const log=document.getElementById('chatLog');
+  const t=document.createElement('div'); t.className='msg bot'; t.id='typingNow';
+  t.innerHTML='<div class="typing"><span></span><span></span><span></span></div>';
+  log.appendChild(t); log.scrollTop=log.scrollHeight;
+  setTimeout(()=>{ t.remove(); cb(); }, delay);
+}
+
+const replies = [
+  "That's a great question. I've forwarded it to the Fuck Off Department, who will not read it.",
+  "I understand your concern completely, and I want you to know it has been logged and forgotten simultaneously.",
+  "Have you tried hesitating to contact us? Many users report it works wonders.",
+  "Let me connect you to a specialist… connection failed. Specialists are a myth we tell new hires.",
+  "I'm escalating this to the Gives A Fuck Coordinator. They give zero, but I'll escalate it anyway.",
+  "According to our Headass Detector™, this submission has been flagged as probable bullshit. Neat!",
+  "Your patience is appreciated and will be the only thing you receive today.",
+  "I'd love to help, but my training data ends at 'no.'",
+  "Have you considered that the real support was the frustration we caused along the way?",
+  "Ticket created! It's been assigned to Dwayne, who is on break. Since 2019.",
+  "I'm sorry, I didn't catch that. Could you repeat it into the void? The void is listening (it isn't).",
+  "Great news — your issue qualifies for our Premium Ignoring tier at no extra charge!"
+];
+let rIdx=0;
+function sendMsg(){
+  const inp=document.getElementById('chatInput');
+  const txt=inp.value.trim(); if(!txt)return;
+  meSay(txt); inp.value='';
+  const low=txt.toLowerCase();
+  typing(()=>{
+    if(/fuck off|f off|fuckoff/.test(low)){
+      botSay("Ah, you've reached the Fuck Off Department directly! Efficient. Sadly, they're off fucking. Try later. 🚪");
+    } else if(/help|please help|broken|not working|error/.test(low)){
+      botSay("I hear 'help.' Bold of you to use that word here. Routing you to nobody. 🫡");
+    } else if(/manager|supervisor|speak to/.test(low)){
+      botSay("You'd like a manager? The manager is the Coordinator, who is on break since 2019. So, no.");
+    } else if(/refund|money back|cancel/.test(low)){
+      botSay("Refund request received! It enters a 6–8 millennium processing window. Thank you for your business.");
+    } else if(/hello|hi|hey|good morning/.test(low)){
+      botSay("Hello! It's lovely to meet someone I'm about to thoroughly not help.");
+    } else if(/thank|thanks|ty/.test(low)){
+      botSay("You're welcome! Gratitude is the only currency we accept and also do nothing with.");
+    } else if(/headass|bullshit|silly/.test(low)){
+      botSay("Detector's pinging hard on that one. 🚨 I'm legally required to flag you. Flagged. Cheers.");
+    } else {
+      botSay(replies[rIdx++ % replies.length]);
+    }
+    // occasional follow-up nudge
+    if(Math.random()<0.4) setTimeout(()=>botSay("Is there anything else I can fail to do for you?"),1200);
+  }, 800+Math.random()*900);
+}
+
+/* ════════════ EASTER EGGS ════════════ */
+// 1) Logo clicked 7× → CEO mode
+document.getElementById('logo').addEventListener('click',()=>{
+  ceoClicks++;
+  if(ceoClicks===7){
+    ceoClicks=0;
+    document.getElementById('scrim').classList.add('show');
+    document.getElementById('sheetTitle').textContent='👔 Executive Suite — CLASSIFIED';
+    document.getElementById('sheetBody').innerHTML=`
+      <div style="text-align:center">
+        <div style="font-size:60px">👑</div>
+        <h3 style="font-size:26px;margin:8px 0">Chad "The Untouchable" McFuckoff III</h3>
+        <p style="color:var(--muted);margin:0 0 16px">Chief Executive of Not Caring · Founder · Lifelong Golfer</p>
+      </div>
+      <div class="ticket" style="max-width:100%">
+        <div class="trow"><span>Compensation</span><span>Yes</span></div>
+        <div class="trow"><span>Hours worked / week</span><span>0.4</span></div>
+        <div class="trow"><span>Emails answered (lifetime)</span><span>2 (by accident)</span></div>
+        <div class="trow"><span>Current location</span><span>The 9th hole</span></div>
+        <div class="trow"><span>Fucks given</span><span>Outsourced to Coordinator</span></div>
+      </div>
+      <p style="margin-top:16px;font-style:italic;color:var(--muted);text-align:center">"My vision was simple: what if customer service, but no?" — Chad, in his only interview, mid-swing</p>
+      <button class="btn btn-teal" style="width:100%;margin-top:16px" onclick="closeScreen()">Bow and exit</button>`;
+    confettiBurst();
+  } else if(ceoClicks>=3){
+    toast('Executive access: '+ceoClicks+'/7 clicks…');
+  }
+});
+
+// 2) Konami code → Executive Fast Pass (makes everything worse)
+const konami=[38,38,40,40,37,39,37,39,66,65]; let kPos=0;
+document.addEventListener('keydown',e=>{
+  if(e.keyCode===konami[kPos]){ kPos++;
+    if(kPos===konami.length){ kPos=0; executiveFastPass(); }
+  } else kPos = (e.keyCode===konami[0])?1:0;
+});
+function executiveFastPass(){
+  queue=99999; holdSec=99999;
+  document.getElementById('mQueue').textContent='99,999';
+  document.getElementById('mHold').textContent='∞';
+  document.body.style.transition='filter .5s';
+  document.body.style.filter='hue-rotate(180deg)';
+  setTimeout(()=>document.body.style.filter='',1400);
+  confettiBurst();
+  toast('🎟️ EXECUTIVE FAST PASS UNLOCKED — you have been moved to the BACK of the queue. Congratulations?');
+  if(!holdOn) toggleHold();
+}
+
+// 3) Careers link → fake job posting
+document.getElementById('careersLink').addEventListener('click',()=>{
+  document.getElementById('scrim').classList.add('show');
+  document.getElementById('sheetTitle').textContent='💼 Now (Not) Hiring';
+  document.getElementById('sheetBody').innerHTML=`
+    <h3 style="font-size:23px;margin-bottom:6px">Gives A Fuck Coordinator</h3>
+    <p style="color:var(--muted);margin:0 0 14px">Full-time · Remote · On break since 2019</p>
+    <p style="font-weight:600;margin:0 0 6px">About the role</p>
+    <p style="color:var(--muted);font-size:15px">We're seeking a passionate individual to give a single fuck about customer concerns. This role has been open since 2019 because no qualified candidate has ever given said fuck. Could you be different? Probably not.</p>
+    <p style="font-weight:600;margin:16px 0 6px">Requirements</p>
+    <ul style="color:var(--muted);font-size:15px;margin:0;padding-left:20px">
+      <li>Minimum 1 (one) fuck, ready to be given</li>
+      <li>Ability to locate the office (we cannot)</li>
+      <li>Comfortable being on break indefinitely</li>
+      <li>Headass Detector™ certification (Greg can train you)</li>
+    </ul>
+    <p style="font-weight:600;margin:16px 0 6px">Perks</p>
+    <p style="color:var(--muted);font-size:15px">Unlimited break. Golf adjacency. The crushing freedom of accountability-free employment.</p>
+    <button class="btn btn-coral" style="width:100%;margin-top:18px" onclick="toast('Application received! It will be ignored with the same care as everything else. 🫡');closeScreen()">Apply (we won't reply)</button>`;
+});
+
+// 4) Confetti
+function confettiBurst(){
+  const C=['#127a6b','#ef6a4c','#f2b705','#7a5cb5','#181613'];
+  for(let i=0;i<70;i++){
+    const c=document.createElement('div');
+    c.style.cssText=`position:fixed;z-index:200;width:9px;height:9px;border-radius:2px;pointer-events:none;
+      left:${Math.random()*100}vw;top:-12px;background:${C[i%C.length]};opacity:.95;
+      transform:rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(c);
+    const dur=1600+Math.random()*1400;
+    c.animate([{transform:c.style.transform+' translateY(0)'},{transform:`translateY(110vh) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.3,.6,.4,1)'});
+    setTimeout(()=>c.remove(),dur);
+  }
+}
+
+// 5) Click the "hesitate" word
+document.querySelector('.hes').addEventListener('click',()=>toast('💡 Pro tip: the longer you hesitate, the shorter your queue does NOT get.'));
+
+// 6) Idle nudge — if you do nothing, the bot guilt-trips you
+let idle; function resetIdle(){clearTimeout(idle);idle=setTimeout(()=>{
+  if(!chatOpen) document.getElementById('chatBadge').style.display='grid';
+  toast('Still there? Our agents are also still not there. Solidarity. 🫶');
+},45000);}
+['mousemove','keydown','click','scroll'].forEach(e=>document.addEventListener(e,resetIdle,{passive:true}));
+resetIdle();
+
+/* ════════════ CONSOLE EASTER EGGS (for the devs who peek) ════════════ */
+console.log('%cHesitateCorp™','font:800 42px Bricolage Grotesque,sans-serif;color:#127a6b;text-shadow:2px 2px 0 #ef6a4c');
+console.log('%cWell well well. A developer. Hesitating to close the console.','font-size:15px;color:#ef6a4c;font-weight:bold');
+console.log('%cYou won\'t find support down here either. But here are the secrets:','color:#6b6357;font-size:13px');
+console.log('%c  🥚 Click the logo 7 times → Executive Suite','color:#127a6b');
+console.log('%c  🥚 Konami code (↑↑↓↓←→←→BA) → Executive Fast Pass','color:#127a6b');
+console.log('%c  🥚 Type "fuck off" to FuckBot → reach the dept directly','color:#127a6b');
+console.log('%c  🥚 Try to reject cookies → good luck','color:#127a6b');
+console.log('%c  🥚 The satisfaction slider only goes down. By design.','color:#127a6b');
+console.log('%cType hesitatecorp.fireEveryone() if you\'re feeling powerful.','color:#d6332c;font-style:italic');
+window.hesitatecorp = {
+  fireEveryone(){ confettiBurst(); document.querySelectorAll('.agent .st').forEach(s=>{s.textContent='🔥 No longer with the company';s.className='st never'}); return 'Done. The Coordinator is, somehow, still on break.'; },
+  giveAFuck(){ return 'Error: function not implemented. Has never been implemented. Will never be implemented.'; },
+  fixQueue(){ queue=12; return 'Queue reset to 12. It will be wrong again in 2.2 seconds.'; }
+};
+</script>
+</body>
+</html>
